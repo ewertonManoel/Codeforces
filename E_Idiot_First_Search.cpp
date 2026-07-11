@@ -16,24 +16,22 @@ const ll LINF = 1e18;
 const int MOD = 1e9 + 7;
 const double EPS = 1e-9;
 
-void bfs(vector<int>& adj, vector<int>& weights, queue<int>& q) {
-    vector<bool> visited(weights.size(), false);
-    while(!q.empty()) {
-        int index = q.front();
-        q.pop();
-        int neighbor = adj[index];
-        weights[neighbor] = (weights[neighbor] + weights[index] + 2) % MOD;
-        if(!visited[neighbor]) visited[neighbor] = true;
-        else q.push(neighbor);
+vector<vector<int>> tree;
+vector<int> weights;
+
+void dfs1(int u, int p) {
+    for(int v : tree[u]) {
+        if(v == p) continue;
+        dfs1(v, u);
+        weights[u] = (weights[u] + weights[v] + 2) % MOD;
     }
-    for(int &i : weights) i = (i + 1) % MOD;
-    weights[0] = 0;
 }
 
-void dfs(vector<vector<int>>& tree, vector<int>& weights, int i) {
-    for(int j : tree[i]) {
-        weights[j] = (weights[j] + weights[i]) % MOD;
-        dfs(tree, weights, j);
+void dfs2(int u, int p) {
+    for(int v : tree[u]) {
+        if(v == p) continue;
+        weights[v] = (weights[v] + weights[u]) % MOD;
+        dfs2(v, u);
     }
 }
 
@@ -42,25 +40,25 @@ int main() {
     int t; cin >> t;
     while(t--) {
         int n; cin >> n;
-        vector<int> adj(n + 1);
-        vector<vector<int>> tree(n + 1);
-        vector<int> weights(n + 1, 0);
-        queue<int> leaves;
-        adj[1] = 0;
+        tree.clear();
+        tree.resize(n + 1);
+        weights.assign(n + 1, 0);
         tree[0].pb(1);
+        tree[1].pb(0);
         for(int i = 1; i <= n; i++) {
             int x; cin >> x;
             int y; cin >> y;
             if(x != 0) {
                 tree[i].pb(x);
                 tree[i].pb(y);
-                adj[x] = i;
-                adj[y] = i;
+                tree[x].pb(i);
+                tree[y].pb(i);
             }
-            else leaves.push(i);
         }
-        bfs(adj, weights, leaves);
-        dfs(tree, weights, 1);
+        dfs1(0, -1);
+        for(int &i : weights) i = (i + 1) % MOD;
+        weights[0] = 0;
+        dfs2(0, -1);
         for(int i = 1; i < weights.size(); i++) cout << weights[i] << " ";
         cout << '\n';
     }
