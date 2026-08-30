@@ -53,7 +53,6 @@ int main() {
         for(int i = 0; i < n; i++) pre_col[i+1] = pre_col[i] + (fact[i].ff - (i-1 < 0 ? 0 : fact[i-1].ff)) * fact[i].ss;
         while(q--) {
             ll ans = 0, x, y; cin >> x >> y;
-            x = min(x, fact.back().ff); y = min(y, fact[0].ss);
             int idx_x = (upper_bound(fact.begin(), fact.end(), s / y, cmp) - fact.begin());
             int idx_x2 = (lower_bound(fact.begin(), fact.end(), x, cmp2) - fact.begin());
             if(idx_x2 < idx_x) ans = x * y;
