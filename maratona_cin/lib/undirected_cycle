@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+using pii = pair<int, int>;
+
+#define pb push_back
+#define INF 1e18
+
+vector<vector<int>> adj;
+vector<bool> visited;
+
+bool dfs(int u, int p) {
+    visited[u] = true;
+    for (auto v : adj[u]) {
+        if (v == p) continue;
+        if (visited[v]) return true;
+        if (dfs(v, u)) return true;
+    }
+    return false;
+}
+
+void solve() {
+    int n, m; cin >> n >> m;
+    adj.assign(n, vector<int>());
+    visited.assign(n, false);
+    for (int i = 0; i < m; i++) {
+        int a, b; cin >> a >> b; a--; b--;
+        adj[a].pb(b);
+        adj[b].pb(a);
+    }
+    bool has_cycle = false;
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            if (dfs(i, -1)) {
+                has_cycle = true;
+                break;
+            }
+        }
+    }
+}
+
+int main() {
+    ios_base::sync_with_stdio(false); cin.tie(0);
+    int t = 1; while(t--) { solve(); }
+}

@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+#define INF 1e18
+
+int n, m;
+vector<vector<char>> grid;
+vector<vector<bool>> visited;
+
+int v[4] = {-1, 1, 0, 0};
+int h[4] = {0, 0, -1, 1};
+
+void dfs(int r, int c, char target) {
+    visited[r][c] = true;
+    for (int i = 0; i < 4; i++) {
+        int nr = r + v[i];
+        int nc = c + h[i];
+        if (nr >= 0 && nr < n && nc >= 0 && nc < m && !visited[nr][nc] && grid[nr][nc] == target) {
+            dfs(nr, nc, target);
+        }
+    }
+}
+
+void solve() {
+    cin >> n >> m;
+    grid.assign(n, vector<char>(m));
+    visited.assign(n, vector<bool>(m, false));
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cin >> grid[i][j];
+        }
+    }
+
+    int components = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (!visited[i][j]) {
+                dfs(i, j, grid[i][j]);
+                components++;
+            }
+        }
+    }
+}
+
+int main() {
+    ios_base::sync_with_stdio(false); cin.tie(0);
+    int t = 1; while(t--) {solve();}
+}
