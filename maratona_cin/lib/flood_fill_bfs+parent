@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+using ll = long long;
+using pii = pair<int, int>;
+#define INF 1e18
+
+int n, m;
+vector<vector<char>> grid;
+vector<vector<bool>> visited;
+
+int v[4] = {0, 1, 0, -1};
+int h[4] = {1, 0, -1, 0};
+
+bool bfs(int r, int c) {
+    queue<pair<int,int>> q;
+    vector<vector<pii>> parent(n, vector<pii>(m, {-1, -1}));
+    q.push({r, c});
+    visited[r][c] = true;
+    parent[r][c] = {r, c};
+    while(!q.empty()) {
+        auto [r, c] = q.front(); q.pop();
+        if(r == n-1 && c == m-1) {
+            while(r != 0 || c != 0) {
+                grid[r][c] = 'X';
+                auto [pr, pc] = parent[r][c];
+                r = pr; c = pc;
+            }
+            grid[0][0] = 'X';
+            return true;
+        }
+        for(int i = 0; i < 4; i++) {
+            int nr = r + v[i], nc = c + h[i];
+            if(nr >= 0 && nr < n && nc >= 0 && nc < m && !visited[nr][nc]) {
+                parent[nr][nc] = {r, c};
+                q.push({nr, nc});
+                visited[nr][nc] = true;
+            }
+        }
+    }
+    return false;
+}
+
+void solve() {}
+
+int main() {
+    ios_base::sync_with_stdio(false); cin.tie(0);
+    int t = 1; while(t--) {solve();}
+}
