@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codeforces Auto-Sync</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1>CF → GitHub</h1>
+        <p class="subtitle">Auto-sync Accepted solutions</p>
+      </div>
+      <label class="switch" title="Ativar / Pausar sincronização automática">
+        <input type="checkbox" id="enabled" />
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <form id="settings-form" class="form">
+      <div class="field">
+        <label for="handle">Codeforces Handle</label>
+        <input type="text" id="handle" placeholder="ewerton" required />
+      </div>
+
+      <div class="field">
+        <label for="repo">GitHub Repository (owner/repo)</label>
+        <input type="text" id="repo" placeholder="ewertonManoel/Codeforces" required />
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="branch">Branch</label>
+          <input type="text" id="branch" placeholder="main" required />
+        </div>
+        <div class="field">
+          <label for="folder">Folder</label>
+          <input type="text" id="folder" placeholder="solutions" required />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="token">
+          GitHub Personal Access Token
+          <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Gerar token ↗</a>
+        </label>
+        <input type="password" id="token" placeholder="github_pat_... ou ghp_..." />
+      </div>
+
+      <label class="checkbox-row">
+        <input type="checkbox" id="addHeader" />
+        <span>Adicionar cabeçalho com metadados (rating, tags, link)</span>
+      </label>
+
+      <div class="actions">
+        <button type="submit" class="btn primary" id="save-btn">Salvar & Testar</button>
+        <button type="button" class="btn secondary" id="sync-now-btn">Sync última AC</button>
+      </div>
+    </form>
+
+    <div id="status-box" class="status hidden"></div>
+
+    <section class="history-section">
+      <h2>Sincronizações recentes</h2>
+      <ul id="history-list" class="history-list">
+        <li class="empty">Nenhuma sincronização ainda.</li>
+      </ul>
+    </section>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
