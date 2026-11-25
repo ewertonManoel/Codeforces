@@ -1,8 +1,8 @@
 // Problem: 131C - The World is a Theatre
 // Contest: 131 | Rating: 1400 | Tags: combinatorics, math
-// Language: C++20 (GCC 13-64) | Time: 92 ms | Memory: 0 KB
+// Language: C++20 (GCC 13-64) | Time: 62 ms | Memory: 0 KB
 // Problem Link: https://codeforces.com/contest/131/problem/C
-// Submission: https://codeforces.com/contest/131/submission/399748296
+// Submission: https://codeforces.com/contest/131/submission/399819101
 
 #include <bits/stdc++.h>
 
@@ -33,5 +33,5 @@ void solve() {
 
 int main() {
     ios::sync_with_stdio(false); cin.tie(nullptr);
-    int t = 1; while(t--) solve();
+    solve();
 }
