@@ -2,7 +2,7 @@
 // Contest: 101666
 // Language: C++20 (GCC 13-64) | Time: 109 ms | Memory: 7000 KB
 // Problem Link: https://codeforces.com/gym/101666/problem/D
-// Submission: https://codeforces.com/gym/101666/submission/399823538
+// Submission: https://codeforces.com/gym/101666/submission/399845635
 
 #include <bits/stdc++.h>
 
@@ -86,5 +86,5 @@ void solve() {
 
 int main() {
     ios::sync_with_stdio(false); cin.tie(nullptr);
-    int t = 1; while(t--) solve();
+    solve();
 }
